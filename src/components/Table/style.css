@@ -1,0 +1,23 @@
+@layer components {
+    .table__row {
+        @apply hover:bg-gray-300 
+        cursor-pointer 
+        border-b-2
+        text-sm font-medium
+        border-gray-100;
+    }
+    .table__header-footer {
+        @apply py-4 px-6 
+        text-center
+        text-sm 
+        font-sans 
+        font-light;
+    }
+}
+
+.table__header-footer {
+    min-width: 130px;
+}
+.table__header-footer:last-of-type {
+    min-width: 210px;
+}

@@ -1,0 +1,10 @@
+@layer components {
+    .input {
+        @apply w-full
+        border-2
+        rounded-md
+        border-gray-300
+        p-3
+        outline-none;
+    }
+}

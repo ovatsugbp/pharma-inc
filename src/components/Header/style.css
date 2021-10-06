@@ -1,0 +1,29 @@
+@layer components {
+    .header__left-item {
+        @apply flex
+        items-center
+        bg-gradient-to-tl from-gray-500 via-gray-600 to-gray-700
+        rounded-sm
+        rounded-tl-3xl
+        p-8;
+    }
+    .header__right-item {
+        @apply flex
+        justify-end
+        cursor-pointer    
+        bg-gradient-to-tr from-gray-500 via-gray-600 to-gray-700
+        p-8
+        rounded-sm 
+        rounded-tr-3xl;
+    }
+}
+.header__left-item {
+    -webkit-clip-path: polygon(0 0, 100% 0, 78% 100%, 0% 100%);
+    clip-path: polygon(0 0, 100% 0, 78% 100%, 0% 100%);
+    flex: 0.35;
+}
+.header__right-item {
+    -webkit-clip-path: polygon(0 0, 100% 0%, 100% 100%, 22% 100%);
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 22% 100%);
+    flex: 0.35;
+}
