@@ -3,11 +3,12 @@
 Esse projeto tem como montar objetivo a montagem de um dashboard de usuários de uma empresa fictícia através de uma tabela.
 
 ## Tecnologias utilizadas
-⚒ React
-⚒ Tailwind CSS
-⚒ PostCSS
-⚒ Axios
-⚒ React-toastify
+⚒ React <br /> 
+⚒ Tailwind CSS <br /> 
+⚒ PostCSS <br /> 
+⚒ Axios <br /> 
+⚒ React-toastify <br /> 
+<br /> 
 ## Como inicializar
 
 Para inicializar o projeto rode os seguinte comando:
