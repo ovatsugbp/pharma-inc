@@ -1,42 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 
 import { useTable, useSortBy, useGlobalFilter } from "react-table";
 import Input from "../Input";
 import { COLUMNS } from "./columns";
-import api from "../../services/api";
+
+import { useUserData } from "../../context/userData";
 
 import "./style.css";
-import { Pagination } from "../Pagination";
 
-export default function Table() {
-    const [users, setUsers] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-
-    useEffect(() => {
-        async function fetchUser() {
-            const USERS = [];
-            const response = await api.get(
-                `?page=${currentPage}&results=50&seed=abc`
-            );
-            response.data.results.forEach((user) => {
-                const dob = user.dob.date.slice(0, 10).split("-");
-                USERS.push({
-                    picture: user.picture.medium,
-                    name: `${user.name.first} ${user.name.last}`,
-                    email: user.email,
-                    gender: user.gender === "female" ? "Feminino" : "Masculino",
-                    birth: `${dob[2]}/${dob[1]}/${dob[0]}`,
-                    phone: user.phone,
-                    nat: user.nat,
-                    location: `${user.location.street.name}, ${user.location.street.number}, ${user.location.city}, ${user.location.state}, ${user.location.country}, ${user.location.postcode}`,
-                    id: user.login.uuid,
-                });
-            });
-            console.log(response, "USERS");
-            setUsers(USERS);
-        }
-        fetchUser();
-    }, [currentPage]);
+export default function Table({ openModal }) {
+    const { users } = useUserData();
 
     const TABLE_DATA = useMemo(() => users, [users]);
     const TABLE_COLUMNS = useMemo(() => COLUMNS, []);
@@ -60,16 +33,12 @@ export default function Table() {
 
     const { globalFilter } = state;
 
-    const paginate = (number) => {
-        setCurrentPage(number);
-    };
-
     return (
         <>
             <Input filter={globalFilter} setFiler={setGlobalFilter} />
             <table
                 {...getTableProps()}
-                className="mx-auto table-fixed bg-gray-50 "
+                className="mx-auto table-fixed bg-gray-50 shadow-md"
             >
                 <thead>
                     {headerGroups.map((headerGroup) => (
@@ -132,7 +101,11 @@ export default function Table() {
                     {rows.map((row) => {
                         prepareRow(row);
                         return (
-                            <tr {...row.getRowProps()} className="table__row">
+                            <tr
+                                {...row.getRowProps()}
+                                className="table__row"
+                                onClick={() => openModal(row)}
+                            >
                                 {row.cells.map((cell) => {
                                     return (
                                         <td
@@ -148,7 +121,6 @@ export default function Table() {
                     })}
                 </tbody>
             </table>
-            <Pagination paginate={paginate} />
         </>
     );
 }

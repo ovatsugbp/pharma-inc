@@ -3,11 +3,11 @@ import "./style.css";
 
 export default function Input({ filter, setFiler }) {
     return (
-        <div className="w-4/5 my-16 mx-auto relative flex">
+        <div className="w-5/12 my-16 mx-auto relative flex">
             <input
                 type="text"
                 className="input"
-                placeholder="Digite aqui o que deseja buscar"
+                placeholder="Digite aqui o dado na tabela que deseja buscar"
                 value={filter || ""}
                 onChange={(e) => setFiler(e.target.value)}
             />
