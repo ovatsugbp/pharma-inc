@@ -49,6 +49,11 @@
         w-full
         justify-center;
     }
+    .user-modal__not-founded {
+        @apply flex-col
+        w-full
+        flex;
+    }
 }
 
 .user-modal {

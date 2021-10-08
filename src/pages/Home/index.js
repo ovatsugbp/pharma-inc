@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { useUserData } from "../../context/userData";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,11 +13,13 @@ import { Modal } from "../../components/Modal";
 
 function Home() {
     const history = useHistory();
+    const location = useLocation();
 
     const [user, setUser] = useState(null);
     const { setCurrentPage, isModalOpen, setIsModalOpen } = useUserData();
 
     const paginate = (number) => {
+        history.push("/");
         setCurrentPage(number);
     };
     const openModal = (user) => {
@@ -32,11 +35,12 @@ function Home() {
             history.push("/");
         }
     };
-    function showMessage(id, page) {
-        let url = new URL("http://localhost:3000/");
-        url.searchParams.set("page", page);
-        url.searchParams.set("id", id);
-        navigator.clipboard.writeText(url);
+    const showMessage = (id, page) => {
+        const currentURL = window.location.href.split("?")[0];
+        let newUrl = new URL(currentURL);
+        newUrl.searchParams.set("page", page);
+        newUrl.searchParams.set("id", id);
+        console.log(newUrl, "here");
         toast.success("Seu texto foi copiado com sucesso!", {
             position: "top-right",
             autoClose: 5000,
@@ -46,7 +50,7 @@ function Home() {
             draggable: true,
             progress: undefined,
         });
-    }
+    };
 
     return (
         <div className="bg-gray-200 h-full min-h-screen">
@@ -64,6 +68,14 @@ function Home() {
             />
 
             <div className="container mx-auto pb-10">
+                <p className="text-center pt-10">
+                    Bem-vindo(a) ao sistema de busca de usuários da Pharma Inc.
+                </p>
+                <p className="text-center pt-3">
+                    Aqui você consegue ter uma visualização otimizada dos nossos
+                    usuários, podendo filtrar e ordenar os dados <br /> ou ter
+                    uma visão expandida clicando na linha desejada.
+                </p>
                 <Table openModal={openModal} />
                 <Modal
                     tableData={user}

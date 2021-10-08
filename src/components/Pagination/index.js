@@ -11,24 +11,23 @@ export const Pagination = ({ paginate }) => {
     const [pages, setPages] = useState([1, 2, 3, 4, 5, 6, 7]);
     const { currentPage, setCurrentPage } = useUserData();
 
-    const previousPage = () => {
+    const previousPage = (page) => {
         history.push("/");
 
         let newArr = [];
-        let count = pages.length;
 
-        // for (let i = 0; i < pages.length; i++) {
-        //     newArr.push(pages[i]);
-        // }
-        // if (pages[0].length >= 7) {
-        //     newArr.unshift(pages[0] - 1);
-        //     setCurrentPage(currentPage - 1);
-        // }
-        // if (pages.length > 6) newArr.pop();
-        // setPages(newArr);
+        for (let i = 0; i < pages.length; i++) {
+            newArr.push(pages[i]);
+        }
+        if (pages[0] > 1) {
+            newArr.unshift(pages[0] - 1);
+            newArr.pop();
+        }
+        setPages(newArr);
+        if (page > 1) setCurrentPage(Number(page) - 1);
     };
 
-    const nextPage = () => {
+    const nextPage = (page) => {
         history.push("/");
 
         let newArr = [];
@@ -38,7 +37,7 @@ export const Pagination = ({ paginate }) => {
         newArr.push(pages[pages.length - 1] + 1);
         newArr.shift();
         setPages(newArr);
-        setCurrentPage(currentPage + 1);
+        setCurrentPage(Number(page) + 1);
     };
 
     return (
@@ -64,7 +63,9 @@ export const Pagination = ({ paginate }) => {
                     <span
                         key={item}
                         className={`mx-2.5 cursor-pointer pagination__item ${
-                            item === currentPage && "pagination__item--active"
+                            item === Number(currentPage)
+                                ? "pagination__item--active"
+                                : ""
                         }`}
                     >
                         <li onClick={() => paginate(item)}>{item}</li>

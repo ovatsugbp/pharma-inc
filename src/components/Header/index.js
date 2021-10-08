@@ -1,8 +1,17 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { useUserData } from "../../context/userData";
 
 import "./style.css";
 
 function Header() {
+    const history = useHistory();
+    const { setCurrentPage } = useUserData();
+
+    const backToPageOne = () => {
+        history.push("/");
+        setCurrentPage(1);
+    };
     return (
         <div className="w-full px-10 py-5 bg-gray-300 flex justify-between">
             <div className="header__left-item">
@@ -23,10 +32,11 @@ function Header() {
                     </svg>
                 </div>
                 <div>
-                    <h2 className="text-xl text-gray-50">Company</h2>
+                    <h2 className="text-xl text-gray-50">Pharma Inc.</h2>
                 </div>
             </div>
-            <div className="header__right-item">
+            <div className="header__right-item" onClick={backToPageOne}>
+                <span className="text-white mr-3">Voltar ao início</span>
                 <div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
