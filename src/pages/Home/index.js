@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { useUserData } from "../../context/userData";
 
@@ -13,7 +13,6 @@ import { Modal } from "../../components/Modal";
 
 function Home() {
     const history = useHistory();
-    const location = useLocation();
 
     const [user, setUser] = useState(null);
     const { setCurrentPage, isModalOpen, setIsModalOpen } = useUserData();
@@ -40,7 +39,9 @@ function Home() {
         let newUrl = new URL(currentURL);
         newUrl.searchParams.set("page", page);
         newUrl.searchParams.set("id", id);
-        console.log(newUrl, "here");
+
+        navigator.clipboard.writeText(newUrl);
+
         toast.success("Seu texto foi copiado com sucesso!", {
             position: "top-right",
             autoClose: 5000,

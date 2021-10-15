@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "../services/api";
 
-export const UserContext = createContext();
+const UserContext = createContext();
 
 export default function UserProvider({ children }) {
     const [isModalOpen, setIsModalOpen] = useState(false);

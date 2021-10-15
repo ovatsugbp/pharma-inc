@@ -6,7 +6,7 @@ import useQuery from "../../Hooks/useQuery";
 
 import "./style.css";
 
-export const Modal = ({ open, onClose, showMessage, tableData }) => {
+export const Modal = ({ onClose, showMessage, tableData }) => {
     let query = useQuery();
 
     const page = query.get("page");
@@ -34,7 +34,7 @@ export const Modal = ({ open, onClose, showMessage, tableData }) => {
         setIsModalOpen(true);
         setCurrentPage(page);
     }
-    if (!open || !isModalOpen) return null;
+    if (!isModalOpen) return null;
 
     return reactDom.createPortal(
         <section className="overlay">
